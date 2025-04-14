@@ -38,10 +38,32 @@ class MainActivity : AppCompatActivity() {
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, materiais)
         spinner_material.adapter = adapter
 
-        val qntConstructors = binding.edtQntConstuctors
+        val qntConstructors = (binding.edtQntConstuctors).toString().toInt()
+        var constructTime = 0.toInt()
+        val result = binding.txvResult
 
-        if(materiais == "Madeira"){
-            
+        do{
+                result.setText("Valor inválido, insira novamente")
+        }while(qntConstructors > 0)
+
+        var verify = true
+        if(materiais.toString() == "Madeira"){
+            constructTime = 100 / qntConstructors
         }
+        else if(materiais.toString() == "Ouro"){
+            constructTime = 50 / qntConstructors
+        }
+        else if(materiais.toString() == "Diamante"){
+            constructTime = 25 / qntConstructors
+        }
+        else{
+            result.setText("Material inválido")
+            verify = false
+        }
+        if (verify == true){
+            result.setText("Tempo estimado de construção: ${constructTime}h")
+        }
+
+
     }
 }
